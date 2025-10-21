@@ -29,28 +29,25 @@ import { proxy } from '../proxy';
 import { settings } from '../settings';
 import { tabs } from '../tabs';
 import { updateService } from '../updateService';
-import { vpnApi } from '../api';
+import { apiManager } from '../api';
 import { browserActionIcon } from '../browserActionIcon';
 import { openPostInstallPage } from '../postinstall';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 import { logStorage } from '../../common/log-storage';
-import { fallbackApi } from '../api/fallbackApi';
 import { flagsStorage } from '../flagsStorage';
 import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
 import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
-import { telemetry } from '../telemetry';
 import { rateModal } from '../rateModal';
 import { runtime } from '../browserApi/runtime';
 import { BROWSER, BUILD_ENV, STAGE_ENV } from '../config';
-import { statisticsService } from '../statistics';
 
 declare global {
     module globalThis {
         // eslint-disable-next-line no-var,vars-on-top
-        var adguard: any;
+        var vpnExt: any;
     }
 }
 
@@ -59,15 +56,15 @@ declare global {
  * This method must be invoked on the top level of service worker.
  */
 const syncInitModules = (): void => {
-    if (!global.adguard) {
-        global.adguard = {};
+    if (!global.vpnExt) {
+        global.vpnExt = {};
     }
-    global.adguard = {
-        ...global.adguard,
+    global.vpnExt = {
+        ...global.vpnExt,
         settings,
         actions,
         proxy,
-        vpnApi,
+        apiManager,
         tabs,
         exclusions,
         auth,
@@ -103,14 +100,8 @@ const asyncInitModules = async (): Promise<void> => {
     try {
         const initStartDate = Date.now();
         await stateStorage.init();
-        /**
-         * Statistics service should be initiated before any other module,
-         * in order to hop into first load event emission.
-         */
-        await statisticsService.init();
         await connectivityService.start();
         await proxy.init();
-        await fallbackApi.init();
         await updateService.init();
         await settings.init();
         // the consent page uses settings, so it should be initiated after settings.init()
@@ -121,7 +112,6 @@ const asyncInitModules = async (): Promise<void> => {
         networkConnectionObserver.init(); // uses permissionsChecker and connectivityService
         await auth.init();
         authSideEffects.init();
-        await telemetry.initState();
         // the updateBrowserActionItems method is called after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
         // the checkAndSwitchStorage is called after settings.init() because it uses settings

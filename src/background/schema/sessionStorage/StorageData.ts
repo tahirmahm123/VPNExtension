@@ -1,6 +1,5 @@
 import zod from 'zod';
 
-import { fallbackInfoScheme } from '../fallbackApi';
 import {
     PROXY_DEFAULTS,
     proxyConfigInterfaceScheme,
@@ -27,7 +26,7 @@ import { CONNECTIVITY_DATA_DEFAULTS, connectivityDataScheme } from '../connectiv
 import { limitedOfferStorageDataScheme } from '../limitedOffer';
 
 export const enum StorageKey {
-    FallbackInfo = 'fallbackInfo',
+    BaseUrlInfo = 'baseUrlInfo',
     ProxyState = 'proxyState',
     ExclusionsState = 'exclusionsState',
     ExclusionsServicesManagerState = 'exclusionsServicesManagerState',
@@ -47,7 +46,7 @@ export const enum StorageKey {
 }
 
 export const storageDataScheme = zod.object({
-    [StorageKey.FallbackInfo]: fallbackInfoScheme.or(zod.null()),
+    [StorageKey.BaseUrlInfo]: zod.string().or(zod.null()),
     [StorageKey.ProxyState]: proxyStateScheme,
     [StorageKey.ExclusionsState]: exclusionsStateScheme,
     [StorageKey.ExclusionsServicesManagerState]: exclusionsServicesManagerScheme,
@@ -70,7 +69,7 @@ export type StorageData = zod.infer<typeof storageDataScheme>;
 
 export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.ProxyState]: PROXY_DEFAULTS,
-    [StorageKey.FallbackInfo]: null,
+    [StorageKey.BaseUrlInfo]: null,
     [StorageKey.CredentialsState]: CREDENTIALS_STATE_DEFAULTS,
     [StorageKey.UpdateServiceState]: {},
     [StorageKey.ExclusionsState]: EXCLUSIONS_STATE_DEFAULTS,

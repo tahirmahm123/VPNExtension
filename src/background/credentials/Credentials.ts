@@ -19,7 +19,6 @@ import {
 import { StateData } from '../stateStorage';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
-import { abTestManager } from '../abTestManager';
 import { ERROR_STATUSES } from '../constants';
 import { type SubscriptionType } from '../../common/constants';
 

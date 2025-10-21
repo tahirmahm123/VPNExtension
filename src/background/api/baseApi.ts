@@ -28,6 +28,7 @@ export interface ConfigInterface {
      */
     headers?: {
         Authorization?: string,
+        Accept?: string,
         'Content-Type'?: string,
     };
 
@@ -43,7 +44,7 @@ interface ApiInterface {
     makeRequest<T>(path: string, config: ConfigInterface, method: Method): Promise<T>;
 }
 
-export class Api implements ApiInterface {
+export class BaseApi implements ApiInterface {
     baseUrlFn: () => Promise<string>;
 
     baseUrlStr: string;

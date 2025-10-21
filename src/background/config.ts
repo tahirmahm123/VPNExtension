@@ -40,9 +40,7 @@ type ForwarderUrlQueries = {
 const CONFIG = __APP_CONFIG__;
 
 const {
-    VPN_API_URL,
-    AUTH_API_URL,
-    TELEMETRY_API_URL,
+    API_URL,
     AUTH_CLIENT_ID,
     WS_API_URL_TEMPLATE,
     BROWSER,
@@ -116,9 +114,7 @@ const FORWARDER_URL_QUERIES: ForwarderUrlQueries = {
 };
 
 export {
-    VPN_API_URL,
-    AUTH_API_URL,
-    TELEMETRY_API_URL,
+    API_URL,
     AUTH_CLIENT_ID,
     WS_API_URL_TEMPLATE,
     BROWSER,

@@ -2,8 +2,7 @@ import { Browser, Env, StageEnv } from './consts';
 
 const {
     FORWARDER_DOMAIN,
-    VPN_API_URL,
-    AUTH_API_URL,
+    API_URL,
 } = process.env;
 
 type BrowsersUrlQueriesMap = {
@@ -66,8 +65,7 @@ const URL_QUERIES_MAP: UrlQueriesMap = {
 // VPN section API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 // Auth section API description - projects/ADGUARD/repos/adguard-auth-service/browse
 const STAGE_CONF: Record<string, string | undefined> = {
-    VPN_API_URL,
-    AUTH_API_URL,
+    API_URL,
 };
 
 const COMMON_CONF = {
@@ -76,7 +74,7 @@ const COMMON_CONF = {
     // Websocket
     WS_API_URL_TEMPLATE: 'wss://{{host}}:443/user?hash={{hash}}',
     // API
-    AUTH_CLIENT_ID: 'adguard-vpn-extension',
+    AUTH_CLIENT_ID: 'urbanshieldvpn-vpn-extension',
     // Privacy URL for Firefox
     AMO_PRIVACY_URL: 'https://addons.mozilla.org/en-US/firefox/addon/adguard-vpn/privacy/',
     // EULA URL for Firefox

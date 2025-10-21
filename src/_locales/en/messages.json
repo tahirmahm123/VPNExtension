@@ -1,19 +1,60 @@
 {
     "name": {
-        "message": "AdGuard VPN — free & secure proxy"
+        "message": "Urban Shield VPN"
     },
     "description": {
-        "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "Use Urban Shield VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous withn VPN proxy."
     },
     "short_name": {
-        "message": "AdGuard VPN"
+        "message": "Urban Shield VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Must not be empty"
+    },
+    "registration_error_not_valid": {
+        "message": "This value is not valid"
+    },
+    "registration_error_min_length": {
+        "message": "Password must contain at least 8 characters"
+    },
+    "registration_error_confirm_password": {
+        "message": "Passwords don’t match"
+    },
+    "registration_error_compromised_password": {
+        "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
+    },
+    "registration_error_unique_constraint": {
+        "message": "This value is already used"
+    },
+    "registration_error_default": {
+        "message": "An error happened, try again later"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA is required"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Invalid token"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Account is disabled"
+    },
+    "authentication_error_account_locked": {
+        "message": "Account is locked for 15 minutes"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Wrong password"
+    },
+    "authentication_too_many_requests": {
+        "message": "We received too many requests from your IP address. Please try again later."
+    },
+    "authentication_error_default": {
+        "message": "An error occurred, try again later"
+    },
+    "global_error_message": {
+        "message": "An error occurred, please contact us via <a>%support_email%</a>"
     },
     "about_title": {
         "message": "About"
-    },
-    "all_rights_reserved": {
-        "message": "All rights reserved."
     },
     "options_support_title": {
         "message": "Support"
@@ -55,16 +96,16 @@
         "message": "An error occurred. Please try again later."
     },
     "options_bug_report_send_button": {
-        "message": "Send report"
+        "message": "Submit"
     },
     "options_bug_report_sending_button": {
-        "message": "Sending report..."
+        "message": "Submitting..."
     },
     "options_bug_report_textarea_placeholder": {
-        "message": "Provide details"
+        "message": "Describe the problem here..."
     },
     "options_bug_report_page_success": {
-        "message": "Thank you, your message sent successfully!"
+        "message": "Thank you, your message was submitted successfully!"
     },
     "options_bug_report_new_report_button": {
         "message": "New report"
@@ -76,13 +117,13 @@
         "message": "Account"
     },
     "account_edit": {
-        "message": "Open account settings"
+        "message": "Manage account"
     },
     "account_version": {
         "message": "Version"
     },
     "account_free": {
-        "message": "Free version"
+        "message": "No Plan Found"
     },
     "account_unlimited": {
         "message": "Unlimited subscription"
@@ -100,34 +141,88 @@
         "message": "Get subscription"
     },
     "account_max_devices_count": {
-        "message": "Up to <b>%num%</b> simultaneous devices"
+        "message": "Up to %num% simultaneous devices"
     },
-    "account_valid_until": {
-        "message": "Valid until <b>%date%</b>"
-    },
-    "account_logged_in_as": {
-        "message": "Logged in as <b>%username%</b>"
+    "account_next_charge": {
+        "message": "Next billing date %date%"
     },
     "account_sign_out": {
         "message": "Log out"
-    },
-    "account_sign_out_question": {
-        "message": "Log out?"
-    },
-    "account_sign_out_popup_cancel": {
-        "message": "Cancel"
-    },
-    "account_sign_out_description": {
-        "message": "You’ll be logged out of your account. VPN protection will be stopped"
     },
     "account_unlimited_title": {
         "message": "Get the Unlimited version!"
     },
     "rate_description": {
-        "message": "Enjoying AdGuard VPN?"
+        "message": "Hey, we are a team from Urban Shield VPN and it is very important for us to know your opinion about our product. Please rate it."
     },
     "rate_hide": {
         "message": "Hide"
+    },
+    "auth_confirm": {
+        "message": "Confirm"
+    },
+    "auth_email": {
+        "message": "Email Address"
+    },
+    "auth_password": {
+        "message": "Password"
+    },
+    "auth_your_password": {
+        "message": "Your password"
+    },
+    "auth_password_confirm": {
+        "message": "Confirm password"
+    },
+    "auth_recover": {
+        "message": "Forgot password?"
+    },
+    "auth_sign_up": {
+        "message": "Sign up"
+    },
+    "auth_sign_up_info": {
+        "message": "Create your Urban Shield VPN account"
+    },
+    "auth_sign_up_button": {
+        "message": "Sign up"
+    },
+    "auth_sign_in": {
+        "message": "Enter your password"
+    },
+    "auth_sign_in_button": {
+        "message": "Log in"
+    },
+    "auth_title": {
+        "message": "Log in or create an account"
+    },
+    "auth_sign_in_provider_label": {
+        "message": "Email"
+    },
+    "auth_sign_in_provider": {
+        "message": "Continue with email"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Continue with Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Continue with Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Continue with Facebook"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Logging in as <span>%username%</span>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Check your email and enter the code"
+    },
+    "auth_header_2fa_changeEmail": {
+        "message": "Change"
+    },
+    "auth_header_2fa": {
+        "message": "Check your email and enter the code"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Authentication code"
     },
     "official_website": {
         "message": "Official website"
@@ -138,14 +233,14 @@
     "privacy_policy": {
         "message": "Privacy Policy"
     },
-    "settings_general_title": {
-        "message": "General"
+    "settings_title": {
+        "message": "Settings"
     },
     "referral_get_free_traffic": {
         "message": "Get free GBs!"
     },
-    "settings_referral_info_friends": {
-        "message": "Send an invite link to your friend. When they sign up to AdGuard VPN via your link, you both get %your_gb% GB of fast VPN. The unused amount doesn’t expire — you can use it over the months. Invite up to %max_friends% friends and get up to %total_gb% GB in total"
+    "settings_referral_info": {
+        "message": "Get %your_gb% GB of free VPN traffic for a month for each friend who signs up through your invite, up to %total_gb% GB in total. Your friend also gets an extra %friend_gb% GB for free."
     },
     "settings_referral_invited_friends": {
         "message": "Invited friends %count%/%limit%"
@@ -163,10 +258,10 @@
         "message": "Free GBs"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Here’s how you can get extra VPN traffic"
+        "message": "Complete the tasks to get free VPN traffic!"
     },
-    "settings_free_gbs_join_adguard": {
-        "message": "Join AdGuard VPN"
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Confirm your email"
     },
     "settings_free_gbs_get_GB": {
         "message": "Get %num% GB"
@@ -174,35 +269,29 @@
     "settings_free_gbs_task_complete": {
         "message": "You got %num% GB"
     },
-    "settings_free_gbs_add_device": {
-        "message": "Add a new device"
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
     },
-    "settings_free_gbs_add_device_title_gb": {
-        "message": "Add a new device and get %your_gb% GB for free"
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Resend link"
     },
-    "settings_free_gbs_add_device_info_gb": {
-        "message": "Log in to AdGuard VPN on another device with %email% to get a one-time %your_gb% GB bonus"
+    "settings_free_gbs_add_device_title": {
+        "message": "Add another device"
     },
-    "settings_free_gbs_add_device_wait_to_update": {
-        "message": "Your monthly limit may take time to update — give it a couple of minutes or restart the app"
+    "settings_free_gbs_add_device_info": {
+        "message": "Install Urban Shield VPN VPN on one more device, log in to your Urban Shield VPN account on it, and get %your_gb% GB"
     },
-    "settings_free_gbs_devices_added_title_gb": {
-        "message": "You got %your_gb% GB for adding a new device"
+    "settings_free_gbs_devices_added_title": {
+        "message": "Devices added"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Unused traffic carries over to next months. And with AdGuard VPN Unlimited, you can enjoy fast browsing without limits"
+        "message": "Congrats with installing Urban Shield VPN on multiple devices. Stay safe!"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Choose product"
+        "message": "Go to Products"
     },
-    "settings_free_gbs_invite_friend_count": {
-        "message": "Invite a friend (%invited_count%/%max_invites%)"
-    },
-    "settings_free_gbs_invite_friend_title": {
-        "message": "Invite a friend and get %your_gb% GB of fast VPN"
-    },
-    "settings_free_gbs_invite_friend_title_success": {
-        "message": "You’ve invited %total_invites% friends and got %total_gbs% GB in total"
+    "settings_free_gbs_invite_friend": {
+        "message": "Invite a friend"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Get up to %num% GB"
@@ -211,10 +300,10 @@
         "message": "You got %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Thank you for helping us grow! Learn how to get more bonuses in the Free GBs section. Or get AdGuard VPN Unlimited to enjoy fast browsing without limits"
+        "message": "Thanks for using all your invites!"
     },
-    "settings_free_gbs_upgrade": {
-        "message": "Upgrade to Unlimited"
+    "settings_free_gbs_go_back": {
+        "message": "Go back"
     },
     "settings_rate_us": {
         "message": "Rate us"
@@ -223,40 +312,16 @@
         "message": "Block WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
+        "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your real IP address and use it to identify you"
     },
     "settings_context_menus_title": {
-        "message": "Display AdGuard VPN in the browser context menu"
-    },
-    "settings_context_menus_description": {
-        "message": "Manage VPN exclusions for a specific website"
+        "message": "Add Urban Shield VPN item to the browser’s context menu"
     },
     "settings_help_us_improve_title": {
-        "message": "Help improve AdGuard VPN"
+        "message": "Help us improve"
     },
-    "settings_help_us_improve_modal_title": {
-        "message": "Extension usage data"
-    },
-    "settings_help_us_improve_modal_desc_data": {
-        "message": "This data includes:"
-    },
-    "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Names of screens you interact with"
-    },
-    "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Names of buttons you click"
-    },
-    "settings_help_us_improve_modal_desc_data_sessions": {
-        "message": "Session identifiers"
-    },
-    "settings_help_us_improve_modal_desc_improve": {
-        "message": "We need this information to analyze and improve the functionality of AdGuard VPN"
-    },
-    "settings_help_us_improve_modal_desc_internally": {
-        "message": "This data is anonymous and only used internally. We never share it with third parties"
-    },
-    "settings_help_us_improve_modal_button": {
-        "message": "Got it"
+    "settings_help_us_improve_description": {
+        "message": "Allow Urban Shield VPN to gather crash reports, technical and interaction data. This is anonymous."
     },
     "context_menu_selective_mode": {
         "message": "Selective mode"
@@ -273,12 +338,6 @@
     "settings_dns_label": {
         "message": "DNS server"
     },
-    "settings_dns_description": {
-        "message": "Resolve DNS requests, block ads and trackers, and encrypt DNS traffic when you're connected to VPN"
-    },
-    "settings_dns_description_current": {
-        "message": "Current: %dnsServerName%"
-    },
     "settings_dns_popular_servers": {
         "message": "Popular DNS servers"
     },
@@ -292,34 +351,34 @@
         "message": "Edit custom DNS server"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "Known DNS providers"
+        "message": "<a>Read more</a> about DNS servers"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Server name"
     },
     "settings_dns_add_custom_server_name_placeholder": {
-        "message": "My DNS Server"
+        "message": "Server name"
     },
     "settings_dns_add_custom_server_address": {
-        "message": "Server address"
+        "message": "DNS server address"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP address or tls://"
+        "message": "Server IP or TLS domain name"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "Invalid server address"
+        "message": "Invalid DNS server address"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS server already added"
-    },
-    "settings_dns_add_custom_server_too_long_name": {
-        "message": "Server name exceeds the %max%-character limit (currently %current%)"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Save and select"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Save"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Custom DNS server added"
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Custom DNS server deleted"
@@ -328,25 +387,25 @@
         "message": "Default"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Uses DNS servers provided by AdGuard VPN"
+        "message": "Uses DNS servers provided by Urban Shield VPN"
     },
-    "settings_dns_selector_adguard_title": {
-        "message": "AdGuard DNS"
+    "settings_dns_selector_title": {
+        "message": "Urban Shield VPN DNS"
     },
-    "settings_dns_selector_adguard_desc": {
+    "settings_dns_selector_desc": {
         "message": "Removes ads and trackers from your device"
     },
-    "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS Non-filtering"
+    "settings_dns_selector_nonfiltering_title": {
+        "message": "Urban Shield VPN DNS Non-filtering"
     },
-    "settings_dns_selector_adguard_nonfiltering_desc": {
+    "settings_dns_selector_nonfiltering_desc": {
         "message": "Secure DNS with no activity logging (does not filter ads & trackers)"
     },
-    "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Family Protection"
+    "settings_dns_selector_family_title": {
+        "message": "Urban Shield VPN DNS Family Protection"
     },
-    "settings_dns_selector_adguard_family_desc": {
-        "message": "AdGuard DNS + SafeSearch and adult content blocking"
+    "settings_dns_selector_family_desc": {
+        "message": "Urban Shield VPN DNS + SafeSearch and adult content blocking"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
@@ -376,7 +435,7 @@
         "message": "Theme"
     },
     "settings_theme_system": {
-        "message": "Browser default"
+        "message": "System default"
     },
     "settings_theme_dark": {
         "message": "Dark"
@@ -421,16 +480,16 @@
         "message": "all subdomains"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN is off for the checked domains and subdomains"
+        "message": "Urban Shield VPN is off for the checked domains and subdomains"
     },
     "settings_exclusion_group_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN is on for the checked domains and subdomains"
+        "message": "Urban Shield VPN is on for the checked domains and subdomains"
     },
     "settings_exclusion_domain_name": {
-        "message": "Domain name"
+        "message": "Domain name:"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Subdomain"
+        "message": "Subdomain name:"
     },
     "settings_exclusion_add_from_list": {
         "message": "From the list"
@@ -490,7 +549,7 @@
         "message": "Remove all exclusions"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Do you want to remove the entire list of exclusions?"
+        "message": "Are you sure you want to continue? The entire list of exclusions will be removed."
     },
     "settings_exclusion_title": {
         "message": "Exclusions"
@@ -529,16 +588,16 @@
         "message": "Try again"
     },
     "authentication_successful_notification": {
-        "message": "Successfully authenticated! You can open AdGuard VPN and start using it."
+        "message": "Successfully authenticated! You can open Urban Shield VPN and start using it."
     },
     "control_error_title": {
-        "message": "Disable another VPN extension to connect"
+        "message": "Extension conflict"
     },
     "control_error_description": {
-        "message": "It looks like another VPN extension is controlling your connection. To use AdGuard VPN, please disable the other extension"
+        "message": "It looks like another browser extension is trying to control your connection. Please disable the other extension in your browser."
     },
     "control_error_disable": {
-        "message": "Disable"
+        "message": "Disable it"
     },
     "popup_skeleton_status": {
         "message": "Searching locations..."
@@ -567,12 +626,6 @@
     "popup_settings_open_settings": {
         "message": "Settings"
     },
-    "popup_settings_stats": {
-        "message": "Stats"
-    },
-    "popup_settings_free_description": {
-        "message": "Available in AdGuard VPN Unlimited"
-    },
     "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
     },
@@ -591,27 +644,17 @@
     "endpoints_all": {
         "message": "All locations"
     },
-    "endpoints_saved": {
-        "message": "Saved"
+    "endpoints_fastest_settings": {
+        "message": "Fastest Locations"
+    },
+    "endpoints_search_results": {
+        "message": "Search result"
     },
     "endpoints_search": {
         "message": "Search location"
     },
     "endpoints_not_found": {
         "message": "Locations not found"
-    },
-    "endpoints_empty_saved": {
-        "message": "To see locations here, select <b>All</b> and click the icon next to a location",
-        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
-    },
-    "endpoints_tab_all": {
-        "message": "All"
-    },
-    "endpoints_tab_saved": {
-        "message": "Saved"
-    },
-    "endpoints_saved_location_deleted": {
-        "message": "Location deleted from Saved"
     },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
@@ -626,7 +669,7 @@
         "message": "Disconnect"
     },
     "settings_vpn_connecting": {
-        "message": "Connecting..."
+        "message": "Connecting"
     },
     "settings_connect": {
         "message": "Connect"
@@ -637,14 +680,20 @@
     "settings_vpn_disabled": {
         "message": "Disconnected"
     },
+    "settings_selected_location": {
+        "message": "Selected Location"
+    },
+    "settings_change_location": {
+        "message": "Change Location"
+    },
     "popup_traffic_limit_exceeded_title": {
         "message": "Speed is reduced"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "You've reached the free data limit, and AdGuard VPN works slowly"
+        "message": "You've reached the free data limit, and Urban Shield VPN works slowly."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Upgrade"
+        "message": "Boost speed"
     },
     "popup_feedback_title": {
         "message": "We'd love to hear your feedback"
@@ -656,7 +705,7 @@
         "message": "Why the app is better"
     },
     "popup_rate_modal_title": {
-        "message": "How awesome is AdGuard VPN?"
+        "message": "How awesome is Urban Shield VPN?"
     },
     "popup_rate_modal_subtitle": {
         "message": "Please rate us"
@@ -689,7 +738,7 @@
         "message": "Most likely, the VPN was blocked in your country or there was a technical glitch. We’re already trying to fix it"
     },
     "popup_server_error_popup_action": {
-        "message": "Nudge AdGuard team"
+        "message": "Nudge Urban Shield VPN team"
     },
     "popup_server_error_popup_cancel": {
         "message": "Cancel"
@@ -707,13 +756,13 @@
         "message": "Allow access to websites"
     },
     "popup_host_permission_error_info": {
-        "message": "To use AdGuard VPN, allow it to access your data on websites. We don't store this data or share it with anyone. <privacy>Privacy policy</privacy>"
+        "message": "To use Urban Shield VPN, allow it to access your data on websites. We don't store this data or share it with anyone. <privacy>Privacy policy</privacy>"
     },
     "popup_host_permission_error_btn_allow": {
         "message": "Allow"
     },
     "options_title": {
-        "message": "AdGuard VPN Options"
+        "message": "Urban Shield VPN Options"
     },
     "offline_title": {
         "message": "Offline"
@@ -724,30 +773,21 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN is disabled on this website"
     },
-    "popup_auth_policy_agreement_title": {
-        "message": "Welcome on board"
-    },
     "popup_auth_policy_agreement": {
-        "message": "I accept AdGuard VPN’s <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
+        "message": "I have read and agree to Urban Shield VPN’s <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Send anonymized <link>extension usage data</link>"
-    },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "If you agree, AdGuard VPN will collect data about the screens and buttons you interact with. You can always disable data sharing in <b>Settings</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "This information helps us understand what features work well and what needs improvement. It is anonymized and only used internally. We never share it with anyone"
+        "message": "I allow Urban Shield VPN to gather <link>strictly anonymous data</link> on the app usage to make Urban Shield VPN even better"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Log in or create an account"
+        "message": "Continue"
     },
     "popup_newsletter_title": {
-        "message": "AdGuard newsletter"
+        "message": "Urban Shield VPN newsletter"
     },
     "popup_newsletter_info": {
-        "message": "Send me emails with special offers and AdGuard news"
+        "message": "Send me emails with special offers and Urban Shield VPN news"
     },
     "popup_newsletter_subscribe": {
         "message": "Subscribe"
@@ -759,28 +799,25 @@
         "message": "Unique VPN protocol"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN’s protocol works fast and makes your VPN traffic inconspicuous"
+        "message": "Urban Shield VPN’s protocol works fast and makes your VPN traffic inconspicuous"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Sites and apps exclusions"
     },
     "popup_onboarding_sites_apps_exclusions_info": {
-        "message": "Exclusions help you quickly specify the sites or apps for AdGuard VPN protection"
+        "message": "Exclusions help you quickly specify the sites or apps for Urban Shield VPN protection"
     },
     "popup_onboarding_no_logging_policy": {
         "message": "No-logging policy"
     },
     "popup_onboarding_no_logging_policy_info": {
-        "message": "AdGuard VPN makes you anonymous. It never collects or shares your data with third parties"
+        "message": "Urban Shield VPN makes you anonymous. It never collects or shares your data with third parties"
     },
     "popup_onboarding_next": {
         "message": "Next"
     },
     "popup_upgrade_screen_title": {
-        "message": "Upgrade to Unlimited"
-    },
-    "popup_upgrade_screen_info_with_devices": {
-        "message": "Access all locations, browse without speed limits, and connect up to %maxDevicesAllowed% devices at once"
+        "message": "Unlimited VPN"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unlimited data"
@@ -804,7 +841,7 @@
         "message": "Up to %potential_num% devices"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Connect all your gadgets to AdGuard VPN at the same time — or protect the entire family!"
+        "message": "Connect all your gadgets to Urban Shield VPN at the same time — or protect the entire family!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Upgrade"
@@ -821,7 +858,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "By the way, you can disable VPN for one website and keep it enabled for others"
+        "message": "By the way, you can disable VPN for this site if you wish"
     },
     "popup_hint_popup_button": {
         "message": "Got it"
@@ -831,7 +868,7 @@
     },
     "popup_vpn_blocked_error_details_title": {
         "message": "The desktop version is more stable"
-    },
+    }, 
     "popup_vpn_blocked_error_details_description": {
         "message": "If you're having connection problems, we recommend switching to the desktop version — it operates more smoothly"
     },
@@ -842,11 +879,11 @@
         "message": "Later"
     },
     "limited_offer_notification_title": {
-        "message": "%discount%%% off AdGuard VPN",
+        "message": "%discount%%% off Urban Shield VPN",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
-        "message": "Flash offer 6h only. Learn more in your AdGuard VPN extension"
+        "message": "Flash offer 6h only. Learn more in your Urban Shield VPN extension"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% off: <span>%time_left%</span>",
@@ -856,7 +893,7 @@
         "message": "Time left: %time_left%"
     },
     "popup_limited_offer_details_title": {
-        "message": "| AdGuard VPN Unlimited for %count% year at <span>%discount%%% off</span> | AdGuard VPN Unlimited for %count% years at <span>%discount%%% off</span>",
+        "message": "| Urban Shield VPN Unlimited for %count% year at <span>%discount%%% off</span> | Urban Shield VPN Unlimited for %count% years at <span>%discount%%% off</span>",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
@@ -896,158 +933,28 @@
         "message": "Zip archive: \"%filename%\" doesn't contain files with extensions: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "You can connect up to %maxDevicesAllowed% devices at the same time."
+        "message": "You've reached the maximum number of connections: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "To use VPN on this one, consider buying AdGuard VPN Unlimited"
+        "message": "To add more devices, consider subscribing to the Unlimited Urban Shield VPN."
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "To use VPN on this one, disconnect another device"
+        "message": "To add another device, disable Urban Shield VPN on any of your gadgets."
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Upgrade"
+        "message": "Subscribe"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Learn more"
     },
     "popup_connections_limit_title": {
-        "message": "Device limit reached"
-    },
-    "popup_mobile_edge_promo_text": {
-        "message": "Get VPN extension for Android"
-    },
-    "popup_mobile_edge_promo_modal_title": {
-        "message": "AdGuard VPN for Edge — now on Android"
-    },
-    "popup_mobile_edge_promo_modal_description": {
-        "message": "Scan the QR code to install Edge on your phone or tablet. AdGuard VPN will appear in suggestions"
-    },
-    "popup_mobile_edge_promo_modal_got_it_btn": {
-        "message": "Got it"
-    },
-    "popup_mobile_edge_promo_modal_do_not_show_btn": {
-        "message": "Don’t show this again"
-    },
-    "popup_stats": {
-        "message": "Stats"
-    },
-    "popup_stats_disabled_notice": {
-        "message": "Stats are disabled"
-    },
-    "popup_stats_enable_btn": {
-        "message": "Enable"
-    },
-    "popup_stats_data_usage": {
-        "message": "Data"
-    },
-    "popup_stats_most_used_locations": {
-        "message": "Most-used locations"
-    },
-    "popup_stats_usage_time": {
-        "message": "Time"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "About your stats"
-    },
-    "popup_stats_data_since": {
-        "message": "Since %startDate%",
-        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Stats show how much VPN data you’ve used and rank your top locations"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Stats never include your browsing history. It’s encrypted, so no one can track you"
-    },
-    "popup_stats_menu_why_safe_description_3": {
-        "message": "If you use AdGuard VPN in several browsers, your stats will be different for each one. They’re saved on the device, and only you can access them"
-    },
-    "popup_stats_menu_why_safe_got_it": {
-        "message": "Got it"
-    },
-    "popup_stats_menu_enable_stats_btn": {
-        "message": "Enable stats"
-    },
-    "popup_stats_menu_disable_stats_btn": {
-        "message": "Disable stats"
-    },
-    "popup_stats_menu_disable_stats_title": {
-        "message": "Disable stats?"
-    },
-    "popup_stats_menu_disable_stats_description": {
-        "message": "New stats won’t be collected. You can still access your existing stats"
-    },
-    "popup_stats_menu_disable_stats_disable_btn": {
-        "message": "Disable"
-    },
-    "popup_stats_menu_disable_stats_cancel_btn": {
-        "message": "Cancel"
-    },
-    "popup_stats_menu_clear_stats_btn": {
-        "message": "Clear stats"
-    },
-    "popup_stats_menu_clear_stats_title": {
-        "message": "Clear stats?"
-    },
-    "popup_stats_menu_clear_stats_description": {
-        "message": "All stats will be permanently deleted"
-    },
-    "popup_stats_menu_clear_stats_clear_btn": {
-        "message": "Clear"
-    },
-    "popup_stats_menu_clear_stats_cancel_btn": {
-        "message": "Cancel"
-    },
-    "popup_stats_range_hours_24": {
-        "message": "24 hours"
-    },
-    "popup_stats_range_days_7": {
-        "message": "7 days"
-    },
-    "popup_stats_range_days_30": {
-        "message": "30 days"
-    },
-    "popup_stats_range_all_time": {
-        "message": "All time"
-    },
-    "popup_stats_data_usage_downloaded": {
-        "message": "downloaded"
-    },
-    "popup_stats_data_usage_uploaded": {
-        "message": "uploaded"
-    },
-    "popup_stats_empty": {
-        "message": "No stats yet — keep using AdGuard VPN to view them"
-    },
-    "popup_stats_view_all_locations": {
-        "message": "View all locations"
-    },
-    "popup_stats_connection_to_vpn": {
-        "message": "Connected to VPN"
-    },
-    "popup_stats_connection_to_vpn_days": {
-        "message": "%days% d",
-        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
-    },
-    "popup_stats_connection_to_vpn_hours": {
-        "message": "%hours% h",
-        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
-    },
-    "popup_stats_connection_to_vpn_minutes": {
-        "message": "%minutes% m",
-        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
-    },
-    "popup_stats_locations": {
-        "message": "Locations"
+        "message": "Connections limit reached"
     },
     "options_signedout_page_title": {
-        "message": "You have logged out of AdGuard VPN"
-    },
-    "options_signedout_page_description_not_secure": {
-        "message": "Your connection is not secured!"
+        "message": "You have signed out of Urban Shield VPN"
     },
     "options_signedout_page_description": {
-        "message": "To continue surfing privately, click the AdGuard VPN icon and log in again."
+        "message": "Please note: you are not connected to VPN and your traffic is not protected! To continue surfing privately, click the Urban Shield VPN icon and sign in again."
     },
     "notification_data_limit_reached_title": {
         "message": "Monthly data limit reached"
@@ -1061,40 +968,40 @@
     "notification_data_left_description": {
         "message": "VPN connection speed will be reduced soon."
     },
-    "confirm_email_done_title_gb": {
-        "message": "You got %your_gb% GB as a one-time welcome bonus"
+    "confirm_email_title": {
+        "message": "Confirm your email"
+    },
+    "confirm_email_info": {
+        "message": "We’ve sent a confirmation code to <span>%email%</span>"
+    },
+    "confirm_email_done_title": {
+        "message": "Email address confirmed"
     },
     "confirm_email_done_info": {
-        "message": "Unused traffic carries over to next months. And with AdGuard VPN Unlimited, you can enjoy fast browsing without limits"
+        "message": "Thanks for verifying it!"
     },
-    "auth_failed_to_login_title": {
-        "message": "Failed to log you in"
+    "confirm_email_code_label": {
+        "message": "Confirmation code"
     },
-    "auth_failed_to_login_description": {
-        "message": "Please try again or <a>contact support</a>"
+    "confirm_email_code_placeholder": {
+        "message": "Contains numbers and letters"
     },
-    "auth_failed_to_login_description_without_support": {
-        "message": "Please try again"
+    "confirm_email_code_invalid": {
+        "message": "Please check the code — it looks incorrect"
     },
-    "auth_failed_to_login_button": {
-        "message": "Close"
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Send another code (%count%)"
     },
-    "auth_loading_title": {
-        "message": "Log in or sign up through your browser"
+    "confirm_email_resend_code_button": {
+        "message": "Send another code"
     },
-    "auth_loading_description": {
-        "message": "If you have an AdGuard VPN license, it’ll apply automatically"
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Failed to log you in. Please try again or contact us via <a>%support_email%</a>"
     },
-    "auth_loading_button_reopen": {
-        "message": "Reopen login page"
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Failed to sign you up. Please try again or contact us via <a>%support_email%</a>"
     },
-    "auth_loading_button_cancel": {
-        "message": "Cancel"
-    },
-    "auth_success_title": {
-        "message": "You’re logged in"
-    },
-    "auth_success_description": {
-        "message": "Go back to the AdGuard VPN extension — it’s all set up"
+    "resend_confirm_registration_link_notification": {
+        "message": "Confirmation link resent"
     }
 }

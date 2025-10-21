@@ -77,11 +77,6 @@ export {
 } from './exclusions';
 
 export {
-    fallbackInfoScheme,
-    type FallbackInfo,
-} from './fallbackApi';
-
-export {
     permissionsCheckerStateScheme,
     type PermissionsCheckerState,
     PERMISSIONS_CHECKER_DEFAULTS,

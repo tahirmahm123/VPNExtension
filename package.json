@@ -1,9 +1,8 @@
 {
-    "name": "adguard-vpn",
-    "version": "2.7.5",
-    "description": "AdGuard VPN",
-    "author": "adguard@adguard.com",
-    "license": "LGPL-3.0",
+    "name": "urbanshield-vpn",
+    "version": "1.0.0",
+    "description": "Urban Nest Company VPN",
+    "author": "info@urbanshieldvpn.com",
     "scripts": {
         "dev": "BUILD_ENV=dev ts-node tasks/bundle.ts",
         "beta": "BUILD_ENV=beta ts-node tasks/bundle.ts",
