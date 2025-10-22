@@ -7,8 +7,6 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
-import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import './host-permissions-error.pcss';
 
@@ -19,19 +17,13 @@ import './host-permissions-error.pcss';
  * because otherwise it won't be able to make api requests.
  */
 export const HostPermissionsError = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
     const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
 
     const { privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
     const isOpen = !isHostPermissionsGranted;
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DialogAccessWebsitesPermission,
-        isOpen,
-    );
 
     const handleAllow = (): void => {
         // the method is async but we don't need to wait for it

@@ -22,7 +22,7 @@ class ApiManager extends BaseApi implements ApiManagerInterface {
         method: 'POST',
     };
 
-    static init(): ApiManagerInterface {
+    static init(): ApiManager {
         return new ApiManager(API_URL);
     }
 

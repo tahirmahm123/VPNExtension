@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Icon } from '../../../common/components/Icons';
@@ -13,7 +12,7 @@ import './limited-offer-notice.pcss';
  * Component to display limited offer notice.
  */
 export const LimitedOfferNotice = observer(() => {
-    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const { uiStore, settingsStore } = useContext(rootStore);
 
     const { limitedOfferData } = settingsStore;
 
@@ -27,10 +26,6 @@ export const LimitedOfferNotice = observer(() => {
      * Opens limited offer details by changing the flag in the uiStore.
      */
     const openDetails = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.PromoOfferClick,
-            TelemetryScreenName.HomeScreen,
-        );
         uiStore.openLimitedOfferDetails();
     };
 

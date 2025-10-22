@@ -1,5 +1,5 @@
-import { fallbackApi } from '../api/fallbackApi';
 import { setExtensionUninstallUrl } from '../helpers';
+import { FORWARDER_DOMAIN } from '../config';
 
 /**
  * Class for handling forwarder domain. AG-32237.
@@ -18,7 +18,7 @@ export class Forwarder {
      * @returns Forwarder domain.
      */
     public async updateAndGetDomain(): Promise<string> {
-        const newDomain = await fallbackApi.getForwarderApiUrl();
+        const newDomain = FORWARDER_DOMAIN;
 
         // update the extension uninstall url if forwarder domain is changed
         if (newDomain !== this.domain) {

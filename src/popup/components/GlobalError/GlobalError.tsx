@@ -5,8 +5,6 @@ import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import confusedImageUrl from '../../../assets/images/confused.svg';
 
 import './global-error.pcss';
@@ -15,13 +13,7 @@ export const GlobalError = observer(() => {
     const {
         settingsStore,
         vpnStore,
-        uiStore,
-        telemetryStore,
     } = useContext(rootStore);
-
-    const { isOpenOptionsModal, isShownVpnBlockedErrorDetails } = uiStore;
-    const { showServerErrorPopup } = settingsStore;
-
     const ERROR_TYPES = {
         PERMISSION: 'permission',
         CONTROL: 'control',
@@ -41,10 +33,6 @@ export const GlobalError = observer(() => {
 
     const handleDisableExtensions = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.DisableAnotherExtensionClick,
-            TelemetryScreenName.DisableAnotherVpnExtensionScreen,
-        );
         await settingsStore.disableOtherProxyExtensions();
     };
 
@@ -57,17 +45,6 @@ export const GlobalError = observer(() => {
     if (!settingsStore.canControlProxy) {
         errorType = ERROR_TYPES.CONTROL;
     }
-
-    const canSendTelemetry = errorType === ERROR_TYPES.CONTROL
-        && !isOpenOptionsModal // `MenuScreen` is rendered on top of this screen
-        && !isShownVpnBlockedErrorDetails // `DialogDesktopVersionPromo` is rendered on top of this screen
-        && !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DisableAnotherVpnExtensionScreen,
-        canSendTelemetry,
-    );
 
     if (errorType === ERROR_TYPES.CONTROL) {
         return (

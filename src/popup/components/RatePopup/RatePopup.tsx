@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
 
@@ -12,7 +11,7 @@ import './rate.pcss';
 const RATING_STARS = [5, 4, 3, 2, 1];
 
 export const RatePopup = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
     const {
         hideRate,
         isRateVisible,
@@ -25,11 +24,6 @@ export const RatePopup = observer(() => {
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
         const { value } = e.target;
-
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.RateUsClick,
-            TelemetryScreenName.MenuScreen,
-        );
 
         // wait until the message is sent to the background and execute it before opening the new tab
         // because window.open() may close the popup and abort the message sending in some browsers

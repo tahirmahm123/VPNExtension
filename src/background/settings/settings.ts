@@ -8,7 +8,6 @@ import {
     APPEARANCE_THEME_DEFAULT,
     type AppearanceTheme,
 } from '../../common/constants';
-import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
@@ -80,12 +79,6 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
             }
             break;
         }
-        case SETTINGS_IDS.SELECTED_DNS_SERVER: {
-            if (typeof value === 'string') {
-                await dns.setDnsServer(value);
-            }
-            break;
-        }
         default: {
             break;
         }
@@ -140,7 +133,7 @@ const applySettings = async (): Promise<void> => {
     );
 
     // Set DNS server
-    await dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
+    // await dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
 
     // Connect proxy
     if (proxyEnabled) {
@@ -196,7 +189,7 @@ const isHelpUsImproveEnabled = (): boolean => {
 
 const init = async (): Promise<void> => {
     await settingsService.init();
-    await dns.init();
+    // await dns.init();
     log.info('Settings module is ready');
 };
 

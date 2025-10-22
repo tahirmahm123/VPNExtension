@@ -4,10 +4,8 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../common/components/Icons';
 
 import './server-error-popup.pcss';
@@ -27,7 +25,7 @@ type ServerErrorPopupData = {
  * This component presents two screens: dialog screen and thank you screen
  */
 export const ServerErrorPopup = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
     const { showServerErrorPopup, closeServerErrorPopup } = settingsStore;
 
     enum ServerErrorPopupState {
@@ -40,17 +38,7 @@ export const ServerErrorPopup = observer(() => {
 
     const isOpen = showServerErrorPopup;
 
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DialogCantConnect,
-        isOpen,
-    );
-
     const closeModal = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.CloseCantConnectClick,
-            TelemetryScreenName.DialogCantConnect,
-        );
         closeServerErrorPopup();
         // reset to initial server error popup state, otherwise it will be shown again if server error
         // occurs AG-23009
@@ -64,10 +52,6 @@ export const ServerErrorPopup = observer(() => {
             button: {
                 text: reactTranslator.getMessage('popup_server_error_popup_action'),
                 action: () => {
-                    telemetryStore.sendCustomEvent(
-                        TelemetryActionName.NudgeAdguardClick,
-                        TelemetryScreenName.DialogCantConnect,
-                    );
                     setState(ServerErrorPopupState.ThankYouScreen);
                 },
             },

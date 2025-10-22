@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
@@ -13,7 +12,7 @@ import './mobile-edge-promo-modal.pcss';
  * Component for displaying mobile Edge promo modal.
  */
 export const MobileEdgePromoModal = observer(() => {
-    const { settingsStore, telemetryStore, uiStore } = useContext(rootStore);
+    const { settingsStore, uiStore } = useContext(rootStore);
 
     const { shouldShowMobileEdgePromoModal } = uiStore;
 
@@ -21,10 +20,6 @@ export const MobileEdgePromoModal = observer(() => {
      * Closes the mobile Edge promo modal.
      */
     const handleCloseModal = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.DeclineAndroidPromoClick,
-            TelemetryScreenName.HomeScreen,
-        );
         uiStore.closeMobileEdgePromoModal();
     };
 
@@ -32,10 +27,6 @@ export const MobileEdgePromoModal = observer(() => {
      * Handles the click on the "Got it" button — just closes the modal.
      */
     const handleGotItClick = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.GotItAndroidPromoClick,
-            TelemetryScreenName.HomeScreen,
-        );
         uiStore.closeMobileEdgePromoModal();
     };
 
@@ -44,10 +35,6 @@ export const MobileEdgePromoModal = observer(() => {
      * closes the modal and hides the mobile Edge promo banner.
      */
     const handleDoNotShowAgainClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.DontShowAndroidPromoClick,
-            TelemetryScreenName.HomeScreen,
-        );
         uiStore.closeMobileEdgePromoModal();
         await settingsStore.hideMobileEdgePromoBanner();
     };

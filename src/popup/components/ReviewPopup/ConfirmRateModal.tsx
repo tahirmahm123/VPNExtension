@@ -7,8 +7,6 @@ import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
 import { IconButton } from '../../../common/components/Icons';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import { RATING_IMAGES_MAP } from './constants';
 
@@ -29,24 +27,12 @@ const storeRatingContent = {
 };
 
 export const ConfirmRateModal = observer(() => {
-    const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const { authStore, settingsStore } = useContext(rootStore);
     const { rating, showConfirmRateModal } = authStore;
     const { forwarderDomain } = settingsStore;
 
     const isStoreRating = rating > BAD_RATING_LIMIT;
     const content = isStoreRating ? storeRatingContent : feedbackContent;
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DialogRateInStore,
-        isStoreRating && showConfirmRateModal,
-    );
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DialogHelpUsImprove,
-        !isStoreRating && showConfirmRateModal,
-    );
 
     const closeModal = async (): Promise<void> => {
         await authStore.closeConfirmRateModalAfterCancel();
@@ -58,33 +44,17 @@ export const ConfirmRateModal = observer(() => {
     };
 
     const handleClose = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            isStoreRating
-                ? TelemetryActionName.CancelRateStoreClick
-                : TelemetryActionName.CancelHelpImproveClick,
-            isStoreRating
-                ? TelemetryScreenName.DialogRateInStore
-                : TelemetryScreenName.DialogHelpUsImprove,
-        );
         await closeModal();
     };
 
     const handleConfirm = async (): Promise<void> => {
         if (isStoreRating) {
-            telemetryStore.sendCustomEvent(
-                TelemetryActionName.RateInStoreClick,
-                TelemetryScreenName.DialogRateInStore,
-            );
             // Same issue as in RatePopup.tsx
             // This issue reproduces only on macOS, possibly any unix based OS
             // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150
             await closeModalWithRating();
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_STORE), '_blank');
         } else {
-            telemetryStore.sendCustomEvent(
-                TelemetryActionName.FeedbackHelpImproveClick,
-                TelemetryScreenName.DialogHelpUsImprove,
-            );
             await closeModal();
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
         }

@@ -5,7 +5,6 @@ import { renderTemplate } from '../../../common/utils/string';
 import { notifier } from '../../../common/notifier';
 import { proxy } from '../../proxy';
 import { log } from '../../../common/logger';
-import { dns } from '../../dns';
 import { sendPingMessage } from '../pingHelpers';
 import { webrtc } from '../../browserApi/webrtc';
 import { sleepIfNecessary } from '../../../common/helpers';
@@ -150,7 +149,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             return;
         }
 
-        this.sendDnsServerIp(await dns.getCurrentDnsServerAddress());
+        // this.sendDnsServerIp(await dns.getCurrentDnsServerAddress());
         this.startSendingPingMessages();
 
         try {

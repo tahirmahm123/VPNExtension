@@ -4,14 +4,13 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 
 import { rootStore } from '../../stores';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { Icon } from '../../../common/components/Icons';
 
 /**
  * Button component for pings recalculation.
  */
 export const Reload = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
     const { arePingsRecalculating } = settingsStore;
 
@@ -19,10 +18,6 @@ export const Reload = observer(() => {
      * Recalculates pings for all endpoints.
      */
     const recalculatePings = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.RenewLocationsClick,
-            TelemetryScreenName.LocationsScreen,
-        );
         await settingsStore.recalculatePings();
     };
 

@@ -5,9 +5,7 @@ import { observer } from 'mobx-react';
 import { UNLIMITED_FEATURES } from '../../../common/components/constants';
 import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../common/components/Icons';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 
 import './limited-offer-details.pcss';
@@ -19,7 +17,6 @@ export const LimitedOfferDetails = observer(() => {
     const {
         uiStore,
         settingsStore,
-        telemetryStore,
         vpnStore,
     } = useContext(rootStore);
 
@@ -28,14 +25,6 @@ export const LimitedOfferDetails = observer(() => {
     const { limitedOfferData } = settingsStore;
 
     const { openForwarderUrlWithEmail } = vpnStore;
-
-    const isRenderedAndOpen = !!limitedOfferData && shouldShowLimitedOfferDetails;
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.PromoOfferScreen,
-        isRenderedAndOpen,
-    );
 
     if (!limitedOfferData) {
         return null;
@@ -49,10 +38,6 @@ export const LimitedOfferDetails = observer(() => {
     } = limitedOfferData;
 
     const openLimitedOfferLink = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.PromoOfferPurchaseClick,
-            TelemetryScreenName.PromoOfferScreen,
-        );
         openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
@@ -61,10 +46,6 @@ export const LimitedOfferDetails = observer(() => {
      * by changing the flags in the **uiStore**.
      */
     const closeDetails = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.ClosePromoOfferClick,
-            TelemetryScreenName.PromoOfferScreen,
-        );
         uiStore.closeLimitedOfferDetails();
         // show the notice again as it cannot be hidden manually, hide only it timer is over
         uiStore.openLimitedOfferNotice();

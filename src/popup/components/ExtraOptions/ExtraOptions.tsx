@@ -8,23 +8,15 @@ import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { messenger } from '../../../common/messenger';
 import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { Prefs } from '../../../common/prefs';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { RatePopup } from '../RatePopup';
-import { StatsMenuItem } from '../Stats';
 
 import { Option } from './Option';
 
 import './extra-options.pcss';
 
 export const ExtraOptions = observer(() => {
-    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.MenuScreen,
-    );
+    const { uiStore, settingsStore } = useContext(rootStore);
 
     const {
         isRateVisible,
@@ -42,10 +34,6 @@ export const ExtraOptions = observer(() => {
         && Prefs.isEdge();
 
     const openSettings = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.SettingsClick,
-            TelemetryScreenName.MenuScreen,
-        );
         await messenger.openOptionsPage();
         window.close();
     };
@@ -60,19 +48,11 @@ export const ExtraOptions = observer(() => {
      * and closes the options modal (i.e. opened popup menu).
      */
     const handleMobileEdgePromoClick = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.MenuGetAndroidClick,
-            TelemetryScreenName.MenuScreen,
-        );
         uiStore.openMobileEdgePromoModal();
         uiStore.closeOptionsModal();
     };
 
     const handleOtherProductsClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.OtherProductsClick,
-            TelemetryScreenName.MenuScreen,
-        );
         await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS));
     };
 
@@ -82,19 +62,11 @@ export const ExtraOptions = observer(() => {
     };
 
     const addToExclusions = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.VpnDisableWebsite,
-            TelemetryScreenName.MenuScreen,
-        );
         await settingsStore.disableVpnOnCurrentTab();
         uiStore.closeOptionsModal();
     };
 
     const openComparePage = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.WhyDesktopClick,
-            TelemetryScreenName.MenuScreen,
-        );
         popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.COMPARE_PAGE));
     };
 
@@ -128,8 +100,6 @@ export const ExtraOptions = observer(() => {
             {renderOption('popup_settings_other_products', handleOtherProductsClick)}
 
             {renderOption('popup_settings_open_settings', openSettings)}
-
-            <StatsMenuItem />
 
             {hasDesktopAppForOs
                 && renderOption('popup_compare_button', openComparePage, 'extra-options__item--compare')}

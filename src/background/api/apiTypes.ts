@@ -4,6 +4,12 @@ export type RequestProps = {
     path: string;
     method: Method;
 };
+
+export type AuthCredentials = {
+    username: string;
+    password: string;
+};
+
 // ----------------------------
 // User Login & Auth Responses
 // ----------------------------

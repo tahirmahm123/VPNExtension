@@ -43,7 +43,7 @@ export class CredentialsService implements CredentialsServiceInterface {
      */
     isPremiumUser = async (): Promise<boolean> => {
         const vpnToken = await this.getVpnTokenFromStorage();
-        return !!vpnToken?.licenseKey;
+        return !vpnToken?.isExpired;
     };
 }
 

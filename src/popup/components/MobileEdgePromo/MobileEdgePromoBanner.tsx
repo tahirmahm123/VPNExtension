@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { Icon, IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
@@ -13,7 +12,7 @@ import './mobile-edge-promo-banner.pcss';
  */
 export const MobileEdgePromoBanner = observer(() => {
     const ref = useRef<HTMLDivElement>(null);
-    const { settingsStore, telemetryStore, uiStore } = useContext(rootStore);
+    const { settingsStore, uiStore } = useContext(rootStore);
 
     /**
      * Sets the height of the mobile Edge promo banner in the CSS variable.
@@ -34,10 +33,6 @@ export const MobileEdgePromoBanner = observer(() => {
      * Opens the mobile Edge promo modal.
      */
     const openModal = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.OpenAndroidPromoClick,
-            TelemetryScreenName.HomeScreen,
-        );
         uiStore.openMobileEdgePromoModal();
     };
 
@@ -45,10 +40,6 @@ export const MobileEdgePromoBanner = observer(() => {
      * Closes the mobile Edge promo banner.
      */
     const closeBanner = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.CloseAndroidPromoClick,
-            TelemetryScreenName.HomeScreen,
-        );
         await settingsStore.hideMobileEdgePromoBanner();
     };
 

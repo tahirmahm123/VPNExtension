@@ -4,11 +4,9 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Icon, IconButton } from '../../../common/components/Icons';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 
 import { RATING_IMAGES_MAP } from './constants';
 
@@ -19,18 +17,12 @@ const RATING_STARS = [5, 4, 3, 2, 1];
 const DEFAULT_RATING_IMAGE_URL = RATING_IMAGES_MAP[5];
 
 export const RateModal = observer(() => {
-    const { authStore, telemetryStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
 
     const { rating, setRating, showRateModal } = authStore;
 
     const [ratingHovered, setRatingHovered] = useState<number | null>(null);
     const [mainImagePath, setMainImagePath] = useState<string>(DEFAULT_RATING_IMAGE_URL);
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DialogRateUs,
-        showRateModal,
-    );
 
     useEffect(() => {
         if (!rating && !ratingHovered) {
@@ -44,10 +36,6 @@ export const RateModal = observer(() => {
     }, [rating, ratingHovered]);
 
     const closeModal = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.CancelRateUsClick,
-            TelemetryScreenName.DialogRateUs,
-        );
         authStore.closeRateModal();
     };
 
@@ -66,10 +54,6 @@ export const RateModal = observer(() => {
     };
 
     const confirmRate = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.SendRateUsClick,
-            TelemetryScreenName.DialogRateUs,
-        );
         authStore.openConfirmRateModal();
     };
 

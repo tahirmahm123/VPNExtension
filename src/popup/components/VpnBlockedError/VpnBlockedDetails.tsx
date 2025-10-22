@@ -7,9 +7,7 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../common/components/Icons';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import './vpn-blocked-details.pcss';
 
@@ -17,23 +15,19 @@ import './vpn-blocked-details.pcss';
  * Component for displaying connection error details.
  */
 export const VpnBlockedDetails = observer(() => {
-    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const { uiStore, settingsStore } = useContext(rootStore);
 
     const isOpen = uiStore.isShownVpnBlockedErrorDetails;
 
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DialogDesktopVersionPromo,
-        isOpen,
-    );
+    // useTelemetryPageViewEvent(
+    //     telemetryStore,
+    //     TelemetryScreenName.DialogDesktopVersionPromo,
+    //     isOpen,
+    // );
 
     const { forwarderDomain } = settingsStore;
 
     const openDownloadPage = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.GetDesktopClick,
-            TelemetryScreenName.DialogDesktopVersionPromo,
-        );
         popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.VPN_BLOCKED_GET_APP));
     };
 
@@ -41,10 +35,6 @@ export const VpnBlockedDetails = observer(() => {
      * Closes the error notice by changing the flag in the **settingsStore**.
      */
     const closeErrorDetails = (): void => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.DeclineDesktopClick,
-            TelemetryScreenName.DialogDesktopVersionPromo,
-        );
         uiStore.closeVpnBlockedErrorDetails();
     };
 

@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
 
-import { type AccountInfoData, accountProvider } from '../providers/accountProvider';
+import { accountProvider } from '../providers/accountProvider';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import type { VpnProviderInterface } from '../providers/vpnProvider';
@@ -71,7 +71,6 @@ export interface CredentialsInterface {
     getTimeExpiresIso(): Promise<string | null>;
     getUsername(): Promise<string | null>;
     getUserRegistrationTimeISO(): Promise<string | null>;
-    getUsernameAndRegistrationTimeISO(): Promise<AccountInfoData>;
 
     /**
      * Returns user decision on marketing consent.
@@ -140,7 +139,7 @@ export class Credentials implements CredentialsInterface {
      */
     async getVpnTokenLocal(): Promise<VpnTokenData | null> {
         // Try to get from state storage first
-        const { vpnToken: currentVpnToken } = await this.credentialsState.get();
+        const { subscriptionStatus: currentVpnToken } = await this.credentialsState.get();
         if (currentVpnToken) {
             return currentVpnToken;
         }
@@ -149,7 +148,7 @@ export class Credentials implements CredentialsInterface {
         const storageVpnToken = await credentialsService.getVpnTokenFromStorage();
 
         // Update state storage with the retrieved token
-        await this.credentialsState.update({ vpnToken: storageVpnToken });
+        await this.credentialsState.update({ subscriptionStatus: storageVpnToken });
 
         return storageVpnToken;
     }
@@ -159,7 +158,7 @@ export class Credentials implements CredentialsInterface {
      * @param token
      */
     async persistVpnToken(token: VpnTokenData | null): Promise<void> {
-        await this.credentialsState.update({ vpnToken: token });
+        await this.credentialsState.update({ subscriptionStatus: token });
         await credentialsService.setVpnTokenToStorage(token);
 
         // notify popup that premium token state could have been changed
@@ -174,7 +173,7 @@ export class Credentials implements CredentialsInterface {
     async getVpnTokenRemote(): Promise<VpnTokenData | null> {
         const accessToken = await this.auth.getAccessToken();
 
-        let vpnToken = null;
+        let vpnToken: VpnTokenData | null = null;
 
         try {
             vpnToken = await accountProvider.getVpnToken(accessToken);
@@ -184,7 +183,7 @@ export class Credentials implements CredentialsInterface {
                 // deauthenticate user
                 await this.auth.deauthenticate();
                 // clear vpnToken
-                this.persistVpnToken(null);
+                await this.persistVpnToken(null);
                 return null;
             }
 
@@ -192,7 +191,7 @@ export class Credentials implements CredentialsInterface {
         }
 
         // save vpnToken in memory
-        this.persistVpnToken(vpnToken);
+        await this.persistVpnToken(vpnToken);
         return vpnToken;
     }
 
@@ -233,19 +232,18 @@ export class Credentials implements CredentialsInterface {
      * @returns True if vpn token is valid or false otherwise.
      */
     isTokenValid(vpnToken: VpnTokenData | null): boolean {
-        const VALID_VPN_TOKEN_STATUS = 'VALID';
         if (!vpnToken) {
             return false;
         }
 
-        const { licenseStatus, timeExpiresSec } = vpnToken;
-        if (!licenseStatus || !timeExpiresSec) {
+        const { isExpired, timeExpiresSec } = vpnToken;
+        if (!isExpired || !timeExpiresSec) {
             return false;
         }
 
         const currentTimeSec = Math.ceil(Date.now() / 1000);
 
-        return !(licenseStatus !== VALID_VPN_TOKEN_STATUS || timeExpiresSec < currentTimeSec);
+        return !(timeExpiresSec < currentTimeSec);
     }
 
     async gainValidVpnToken(
@@ -260,7 +258,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
-        await this.credentialsState.update({ vpnToken });
+        await this.credentialsState.update({ subscriptionStatus: vpnToken });
         return vpnToken;
     }
 
@@ -337,10 +335,7 @@ export class Credentials implements CredentialsInterface {
      *
      * @returns True if credentials are valid.
      */
-    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean {
-        const VALID_CREDENTIALS_STATUS = 'VALID';
-        const LIMIT_EXCEEDED_CREDENTIALS_STATUS = 'LIMIT_EXCEEDED';
-
+    areCredentialsValid(vpnCredentials: string | null): boolean {
         if (!vpnCredentials) {
             return false;
         }
@@ -719,13 +714,6 @@ export class Credentials implements CredentialsInterface {
             if (tracked) {
                 return;
             }
-
-            const appId = await this.getAppId();
-            const { version } = appStatus;
-
-            const experiments = abTestManager.getExperiments();
-            const response = await this.vpnProvider.trackExtensionInstallation(appId, version, experiments);
-            await abTestManager.setVersions(response.experiments);
 
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('Installation successfully tracked');

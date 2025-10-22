@@ -1,6 +1,6 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 
-import { MessageType, SETTINGS_IDS, CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
+import { MessageType, SETTINGS_IDS } from '../../common/constants';
 import { type ExclusionsData } from '../../common/exclusionsConstants';
 import { logStorage } from '../../common/log-storage';
 import { log } from '../../common/logger';
@@ -25,15 +25,11 @@ import { type RequestSupportParameters, vpnProvider } from '../providers/vpnProv
 import { accountProvider } from '../providers/accountProvider';
 import { flagsStorage } from '../flagsStorage';
 import { rateModal } from '../rateModal';
-import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
 import { limitedOfferService } from '../limitedOfferService';
-import { telemetry } from '../telemetry';
-import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
 import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
-import { statisticsService } from '../statistics';
 import { type OptionsData } from '../../options/stores/SettingsStore';
 import { updateService } from '../updateService';
 
@@ -52,7 +48,7 @@ const eventListeners: EventListeners = {};
  *
  * @returns Options data.
  */
-const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
+const getOptionsData = async (): Promise<OptionsData> => {
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
@@ -66,11 +62,6 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
     const customDnsServers = settings.getCustomDnsServers();
     const quickConnectSetting = settings.getQuickConnectSetting();
-
-    let pageId = null;
-    if (!isDataRefresh) {
-        pageId = telemetry.addOpenedPage();
-    }
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -119,7 +110,7 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
         subscriptionTimeExpiresIso,
         customDnsServers,
         quickConnectSetting,
-        pageId,
+        pageId: null,
     };
 };
 
@@ -192,8 +183,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return savedLocations.removeSavedLocation(locationId);
         }
         case MessageType.GET_OPTIONS_DATA: {
-            const { isRefresh } = data;
-            return getOptionsData(isRefresh);
+            // const { isRefresh } = data;
+            return getOptionsData();
         }
         case MessageType.GET_CONSENT_DATA: {
             return getConsentData();
@@ -395,10 +386,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             await rateModal.hideAfterRate();
             break;
         }
-        case MessageType.HIDE_MOBILE_EDGE_PROMO_BANNER: {
-            await mobileEdgePromoService.hideBanner();
-            break;
-        }
         case MessageType.GET_GENERAL_EXCLUSIONS: {
             return exclusions.getRegularExclusions();
         }
@@ -407,31 +394,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         }
         case MessageType.RESTORE_EXCLUSIONS: {
             return exclusions.restoreExclusions();
-        }
-        case MessageType.ADD_CUSTOM_DNS_SERVER: {
-            return dns.addCustomDnsServer(data.dnsServerData);
-        }
-        case MessageType.HANDLE_CUSTOM_DNS_LINK: {
-            await actions.openOptionsPage(
-                {
-                    anchorName: CUSTOM_DNS_ANCHOR_NAME,
-                    queryParams: {
-                        name: data.name,
-                        address: data.address,
-                    },
-                },
-            );
-            return null;
-        }
-        case MessageType.EDIT_CUSTOM_DNS_SERVER: {
-            await dns.editCustomDnsServer(data.dnsServerData);
-            return settings.getCustomDnsServers();
-        }
-        case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
-            return dns.removeCustomDnsServer(data.dnsServerId);
-        }
-        case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
-            return dns.restoreCustomDnsServersData();
         }
         case MessageType.GET_LOGS: {
             return logStorage.getLogsString();
@@ -446,32 +408,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         case MessageType.RECALCULATE_PINGS: {
             await locationsService.measurePings(true);
             break;
-        }
-        case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
-            const { screenName, pageId } = data;
-            await telemetry.sendPageViewEventDebounced(screenName, pageId);
-            break;
-        }
-        case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
-            const { actionName, screenName } = data;
-            await telemetry.sendCustomEventDebounced(actionName, screenName);
-            break;
-        }
-        case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
-            const { pageId } = data;
-            telemetry.removeOpenedPage(pageId);
-            break;
-        }
-        case MessageType.STATISTICS_GET_BY_RANGE: {
-            const { range } = data;
-            return statisticsService.getStatsByRange(range);
-        }
-        case MessageType.STATISTICS_CLEAR: {
-            return statisticsService.clearStatistics();
-        }
-        case MessageType.STATISTICS_SET_IS_DISABLED: {
-            const { isDisabled } = data;
-            return statisticsService.setIsDisabled(isDisabled);
         }
         case MessageType.SEND_WEB_AUTH_ACTION: {
             const { action } = data;

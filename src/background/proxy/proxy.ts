@@ -7,7 +7,6 @@ import { log } from '../../common/logger';
 import { browserApi } from '../browserApi';
 import { notifier } from '../../common/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
-import { fallbackApi } from '../api/fallbackApi';
 import {
     type AccessCredentials,
     type CanControlProxy,
@@ -18,6 +17,7 @@ import {
     StorageKey,
 } from '../schema';
 import { StateData } from '../stateStorage';
+import { API_URL } from '../config';
 
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { proxyApi } from './abstractProxyApi';
@@ -133,7 +133,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
             defaultExclusions: [
                 ...DEFAULT_EXCLUSIONS,
                 ...endpointsTldExclusions || PROXY_DEFAULTS.endpointsTldExclusions,
-                ...await fallbackApi.getApiUrlsExclusions(),
+                API_URL,
             ],
             nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
             host: currentHost || PROXY_DEFAULTS.currentHost,

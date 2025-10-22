@@ -6,11 +6,6 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
-import {
-    TelemetryActionName,
-    TelemetryScreenName,
-    type HeaderScreenNames,
-} from '../../../background/telemetry/telemetryEnums';
 import { Icon, IconButton } from '../../../common/components/Icons';
 
 import './header.pcss';
@@ -29,7 +24,7 @@ export interface HeaderProps {
      *
      * If null, telemetry will not be sent.
      */
-    screenName?: HeaderScreenNames | null;
+    screenName?: null;
 }
 
 /**
@@ -37,37 +32,21 @@ export interface HeaderProps {
  */
 export const Header = observer(({
     showMenuButton,
-    screenName = TelemetryScreenName.HomeScreen,
 }: HeaderProps) => {
     const {
         uiStore,
         vpnStore,
         settingsStore,
-        telemetryStore,
     } = useContext(rootStore);
 
     const { isPremiumToken } = vpnStore;
     const { hasGlobalError, isLimitedOfferActive } = settingsStore;
 
     const handleOpenModal = (): void => {
-        if (screenName) {
-            telemetryStore.sendCustomEvent(
-                TelemetryActionName.MenuClick,
-                screenName,
-            );
-        }
-
         uiStore.openOptionsModal();
     };
 
     const handleOpenReferral = async (): Promise<void> => {
-        if (screenName) {
-            telemetryStore.sendCustomEvent(
-                TelemetryActionName.FreeGbClick,
-                screenName,
-            );
-        }
-
         await popupActions.openFreeGbsPage();
     };
 

@@ -1,60 +1,48 @@
-import { notifier } from '../../common/notifier';
-import { WebAuthState } from '../auth/webAuthEnums';
+type CacheValue = boolean | null | string | object;
 
-import { AuthCacheKey, type AuthCacheData } from './authCacheTypes';
+interface AuthCacheData {
+    [key: string]: CacheValue;
+}
 
-export interface AuthCacheInterface {
-    /**
-     * Sets values to the storage.
-     *
-     * @param field Field to update.
-     * @param value New value.
-     */
-    updateCache<T extends AuthCacheKey>(field: T, value: AuthCacheData[T]): void;
-
-    /**
-     * Gets all cached authentication data.
-     *
-     * @returns All cached authentication values including credentials and settings.
-     */
+interface AuthCacheInterface {
+    updateCache(field: string, value: CacheValue): void;
     getCache(): AuthCacheData;
-
-    /**
-     * Sets values to default
-     */
     clearCache(): void;
 }
 
 const AuthCache = (): AuthCacheInterface => {
-    /**
-     * Default values for the authentication cache.
-     */
     const DEFAULTS: AuthCacheData = {
-        [AuthCacheKey.PolicyAgreement]: false,
-        [AuthCacheKey.HelpUsImprove]: false,
-        [AuthCacheKey.WebAuthFlowState]: WebAuthState.Idle,
+        username: '',
+        password: '',
+        confirmPassword: '',
+        step: '',
+        authError: null,
+        code: '',
+        activeDeviceSession: null,
     };
 
-    /**
-     * Current values for the authentication cache.
-     */
     let authCache = { ...DEFAULTS };
 
-    /** @inheritdoc */
+    /**
+     * Sets values to default
+     */
     const clearCache = (): void => {
         authCache = { ...DEFAULTS };
     };
 
-    /** @inheritdoc */
-    const updateCache = <T extends AuthCacheKey>(field: T, value: AuthCacheData[T]): void => {
-        const isDifferent = authCache[field] !== value;
+    /**
+     * Sets values to the storage
+     * @param field
+     * @param value
+     */
+    const updateCache = (field: string, value: CacheValue): void => {
         authCache[field] = value;
-        if (isDifferent) {
-            notifier.notifyListeners(notifier.types.AUTH_CACHE_UPDATED, field, value);
-        }
     };
 
-    /** @inheritdoc */
+    /**
+     * Returns all values
+     * @returns authCache
+     */
     const getCache = (): AuthCacheData => authCache;
 
     return {

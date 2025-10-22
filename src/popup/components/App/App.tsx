@@ -19,7 +19,6 @@ import { log } from '../../../common/logger';
 import { type NotifierMessage, messenger } from '../../../common/messenger';
 import { notifier } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
-import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
@@ -30,10 +29,7 @@ import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal';
-import { SETTINGS_IDS } from '../../../common/constants';
-import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { MobileEdgePromo } from '../MobileEdgePromo';
-import { Stats } from '../Stats';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 
 import { AppLoaders } from './AppLoaders';
@@ -48,8 +44,6 @@ export const App = observer(() => {
         uiStore,
         vpnStore,
         globalStore,
-        telemetryStore,
-        statsStore,
     } = useContext(rootStore);
 
     const {
@@ -58,7 +52,6 @@ export const App = observer(() => {
         hasLimitExceededError,
         isCurrentTabExcluded,
         canBeExcluded,
-        showLimitExceededScreen,
         isVpnBlocked,
         isHostPermissionsGranted,
         hasDesktopAppForOs,
@@ -71,8 +64,6 @@ export const App = observer(() => {
     const { initStatus } = globalStore;
 
     const { isOpenOptionsModal, isOpenLocationsScreen } = uiStore;
-
-    const { isOpenStatsScreen } = statsStore;
 
     const {
         premiumPromoEnabled,
@@ -136,21 +127,8 @@ export const App = observer(() => {
                     settingsStore.openServerErrorPopup();
                     break;
                 }
-                case notifier.types.SETTING_UPDATED: {
-                    if (
-                        data === SETTINGS_IDS.HELP_US_IMPROVE
-                        && typeof value === 'boolean'
-                    ) {
-                        telemetryStore.setIsHelpUsImproveEnabled(value);
-                    }
-                    break;
-                }
                 case notifier.types.SHOW_RATE_MODAL: {
                     authStore.setShouldShowRateModal(true);
-                    break;
-                }
-                case notifier.types.STATS_UPDATED: {
-                    await statsStore.updateStatistics();
                     break;
                 }
                 case notifier.types.AUTH_CACHE_UPDATED: {
@@ -180,12 +158,9 @@ export const App = observer(() => {
             notifier.types.AUTH_CACHE_UPDATED,
         ];
 
-        const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);
-
-        telemetryStore.setPageId(portId);
+        const { onUnload } = messenger.createLongLivedConnection(events, messageHandler);
 
         return (): void => {
-            telemetryStore.setPageId(null);
             onUnload();
             settingsStore.stopTrackSystemTheme();
         };
@@ -360,7 +335,7 @@ export const App = observer(() => {
         const showMenuButton = authenticated && canControlProxy;
 
         // Screen name can be null if the error is not related to the control of the proxy.
-        const screenName = !canControlProxy ? TelemetryScreenName.DisableAnotherVpnExtensionScreen : null;
+        const screenName = null; //! canControlProxy ? TelemetryScreenName.DisableAnotherVpnExtensionScreen : null;
 
         return (
             <>
@@ -379,29 +354,10 @@ export const App = observer(() => {
             </>
         );
     }
-
-    if (showLimitExceededScreen || !canControlProxy) {
-        return (
-            <>
-                <TrafficLimitExceeded />
-                <Icons />
-            </>
-        );
-    }
-
     if (isOpenLocationsScreen) {
         return (
             <>
                 <Locations />
-                <Icons />
-            </>
-        );
-    }
-
-    if (isOpenStatsScreen) {
-        return (
-            <>
-                <Stats />
                 <Icons />
             </>
         );

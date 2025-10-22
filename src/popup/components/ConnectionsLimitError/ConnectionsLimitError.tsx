@@ -10,13 +10,11 @@ import { rootStore } from '../../stores';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../common/components/Icons';
-import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import confusedImageUrl from '../../../assets/images/confused.svg';
 
 export const ConnectionsLimitError = observer(() => {
-    const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const { vpnStore, settingsStore } = useContext(rootStore);
     const nodeRef = useRef<HTMLDivElement>(null);
 
     const {
@@ -27,14 +25,6 @@ export const ConnectionsLimitError = observer(() => {
     } = vpnStore;
 
     const isMaxDevicesAllowedCorrect = !isNil(maxDevicesAllowed);
-
-    const isRendered = tooManyDevicesConnected && isMaxDevicesAllowedCorrect;
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.DeviceLimitScreen,
-        isRendered,
-    );
 
     const { forwarderDomain } = settingsStore;
 

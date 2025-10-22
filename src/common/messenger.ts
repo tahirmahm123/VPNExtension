@@ -2,16 +2,9 @@ import browser, { type Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
 import type { LimitedOfferData } from '../background/limitedOfferService';
-import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
-import type {
-    TelemetryScreenName,
-    TelemetryActionName,
-    TelemetryActionToScreenMap,
-} from '../background/telemetry/telemetryEnums';
 import { ForwarderUrlQueryKey } from '../background/config';
 import { type LocationsTab } from '../background/endpoints/locationsEnums';
-import { type StatisticsByRange, type StatisticsRange } from '../background/statistics/statisticsTypes';
 import { type AuthCacheKey, type AuthCacheData } from '../background/authentication/authCacheTypes';
 import { type WebAuthAction } from '../background/auth/webAuthEnums';
 
@@ -508,11 +501,6 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async hideMobileEdgePromoBanner(): Promise<any> {
-        const type = MessageType.HIDE_MOBILE_EDGE_PROMO_BANNER;
-        return this.sendMessage(type);
-    }
-
     async setNotificationViewed(withDelay: boolean): Promise<any> {
         const type = MessageType.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
@@ -599,26 +587,6 @@ class Messenger {
         return this.sendMessage(type, { exclusionsMap });
     }
 
-    addCustomDnsServer(dnsServerData: DnsServerData): Promise<any> {
-        const type = MessageType.ADD_CUSTOM_DNS_SERVER;
-        return this.sendMessage(type, { dnsServerData });
-    }
-
-    editCustomDnsServer(dnsServerData: DnsServerData): Promise<any> {
-        const type = MessageType.EDIT_CUSTOM_DNS_SERVER;
-        return this.sendMessage(type, { dnsServerData });
-    }
-
-    removeCustomDnsServer(dnsServerId: string): Promise<any> {
-        const type = MessageType.REMOVE_CUSTOM_DNS_SERVER;
-        return this.sendMessage(type, { dnsServerId });
-    }
-
-    restoreCustomDnsServersData(): Promise<any> {
-        const type = MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA;
-        return this.sendMessage(type);
-    }
-
     /**
      * Gets logs from the background page.
      *
@@ -642,89 +610,6 @@ class Messenger {
     recalculatePings(): Promise<any> {
         const type = MessageType.RECALCULATE_PINGS;
         return this.sendMessage(type);
-    }
-
-    /**
-     * Sends a message to the background to send a page view telemetry event.
-     *
-     * NOTE: Do not await this function, as it is not necessary to wait for the response.
-     *
-     * @param screenName Name of the screen.
-     * @param pageId Page ID of the screen.
-     *
-     * @returns Promise that resolves when page view telemetry event is sent.
-     */
-    async sendPageViewTelemetryEvent(
-        screenName: TelemetryScreenName,
-        pageId: string,
-    ): Promise<void> {
-        const type = MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW;
-        return this.sendMessage(type, { screenName, pageId });
-    }
-
-    /**
-     * Sends a message to the background to send a custom telemetry event.
-     *
-     * NOTE: Do not await this function, as it is not necessary to wait for the response.
-     *
-     * @param event Custom telemetry event data.
-     *
-     * @returns Promise that resolves when custom telemetry event is sent.
-     */
-    async sendCustomTelemetryEvent<T extends TelemetryActionName>(
-        actionName: T,
-        screenName: TelemetryActionToScreenMap[T],
-    ): Promise<void> {
-        const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
-        return this.sendMessage(type, { actionName, screenName });
-    }
-
-    /**
-     * Removes opened page from the list of opened pages of telemetry module.
-     *
-     * @param pageId ID of page to remove.
-     *
-     * @returns Promise that resolves when opened page is removed.
-     */
-    async removeTelemetryOpenedPage(pageId: string): Promise<void> {
-        const type = MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE;
-        return this.sendMessage(type, { pageId });
-    }
-
-    /**
-     * Retrieves statistics data for the given range.
-     *
-     * @param range The range for which statistics data is needed.
-     *
-     * @returns Stats data for the given range.
-     */
-    async getStatsByRange(range: StatisticsRange): Promise<StatisticsByRange> {
-        const type = MessageType.STATISTICS_GET_BY_RANGE;
-        return this.sendMessage(type, { range });
-    }
-
-    /**
-     * Clears all statistics.
-     *
-     * WARNING: This method will delete all statistics data,
-     * make sure that you know what you are doing before calling it.
-     *
-     * @returns Promise that resolves when statistics are cleared.
-     */
-    async clearStatistics(): Promise<void> {
-        const type = MessageType.STATISTICS_CLEAR;
-        return this.sendMessage(type);
-    }
-
-    /**
-     * Sets the statistics disabled state.
-     *
-     * @param isDisabled If `true`, statistics will be disabled and no data will be collected.
-     * @returns Promise that resolves when statistics disabled state is set.
-     */
-    async setStatisticsIsDisabled(isDisabled: boolean): Promise<void> {
-        const type = MessageType.STATISTICS_SET_IS_DISABLED;
-        return this.sendMessage(type, { isDisabled });
     }
 
     /**

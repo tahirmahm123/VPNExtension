@@ -6,6 +6,7 @@ interface AuthServiceInterface {
     saveAccessTokenData(accessToken: AuthAccessToken): Promise <void>;
     removeAccessTokenData(): Promise <void>;
     isAuthenticated(): Promise<boolean>;
+    getApiToken(): Promise<string | null>;
 }
 
 /**
@@ -43,13 +44,17 @@ export class AuthService implements AuthServiceInterface {
 
     /**
      * User is considered authenticated
-     * if an accessToken is present in the access token data.
-     *
-     * @returns Promise with true if user is authenticated, false otherwise.
+     * if an accessToken is present in the access token data
+     * @returns Promise<boolean>
      */
     isAuthenticated = async (): Promise<boolean> => {
         const accessTokenData = await this.getAccessTokenData();
         return !!accessTokenData?.accessToken;
+    };
+
+    getApiToken = async (): Promise<string | null> => {
+        const accessTokenData = await this.getAccessTokenData();
+        return accessTokenData?.accessToken || null;
     };
 }
 

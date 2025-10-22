@@ -1,6 +1,4 @@
 export {
-    vpnCredentialsScheme,
-    type CredentialsDataInterface,
     credentialsStateScheme,
     type CredentialsState,
     CREDENTIALS_STATE_DEFAULTS,

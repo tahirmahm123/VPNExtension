@@ -94,12 +94,6 @@ export enum MessageType {
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     HIDE_RATE_MODAL_AFTER_RATE = 'hide.rate.modal.after.rate',
     HIDE_RATE_MODAL_AFTER_CANCEL = 'hide.rate.modal.after.cancel',
-    HIDE_MOBILE_EDGE_PROMO_BANNER = 'hide.mobile.edge.promo.banner',
-    HANDLE_CUSTOM_DNS_LINK = 'handle.custom.dns.link',
-    ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
-    EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
-    REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
-    RESTORE_CUSTOM_DNS_SERVERS_DATA = 'restore.custom.dns.servers.data',
     SET_HINT_POPUP_VIEWED = 'set.hint.popup.viewed',
 
     GET_LOGS = 'get.logs',
@@ -108,14 +102,6 @@ export enum MessageType {
     UPDATE_LISTENERS = 'update.listeners',
 
     RECALCULATE_PINGS = 'recalculate.pings',
-
-    TELEMETRY_EVENT_SEND_PAGE_VIEW = 'telemetry.event.send.page.view',
-    TELEMETRY_EVENT_SEND_CUSTOM = 'telemetry.event.send.custom',
-    TELEMETRY_EVENT_REMOVE_OPENED_PAGE = 'telemetry.event.remove.opened.page',
-
-    STATISTICS_GET_BY_RANGE = 'statistics.get.by.range',
-    STATISTICS_CLEAR = 'statistics.clear',
-    STATISTICS_SET_IS_DISABLED = 'statistics.set.is.disabled',
 
     SEND_WEB_AUTH_ACTION = 'send.web.auth.action',
     GET_STARTUP_DATA = 'get.startup.data',

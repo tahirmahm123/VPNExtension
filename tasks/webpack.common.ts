@@ -27,12 +27,10 @@ const {
 } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
-const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const CUSTOM_DNS_LINKS_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/custom-dns-links.ts');
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'common/preloadTheme.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
-const CONSENT_PATH = path.resolve(__dirname, SRC_PATH, 'consent');
 const SUCCESS_AUTH_PATH = path.resolve(__dirname, SRC_PATH, 'success-auth');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
@@ -57,12 +55,10 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
         cache: true,
         entry: {
             background: BACKGROUND_PATH,
-            options: OPTIONS_PATH,
             popup: POPUP_PATH,
             'custom-dns-links': CUSTOM_DNS_LINKS_SCRIPT,
             preloadTheme: PRELOAD_THEME_SCRIPT,
             export: EXPORT_PATH,
-            consent: CONSENT_PATH,
             'success-auth': SUCCESS_AUTH_PATH,
         },
         output: {
@@ -251,12 +247,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 ],
             }),
             new HtmlWebpackPlugin({
-                template: path.join(OPTIONS_PATH, 'index.html'),
-                filename: 'options.html',
-                chunks: ['options'],
-                cache: false,
-            }),
-            new HtmlWebpackPlugin({
                 template: path.join(POPUP_PATH, 'index.html'),
                 filename: 'popup.html',
                 chunks: ['popup'],
@@ -266,12 +256,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 template: path.join(EXPORT_PATH, 'index.html'),
                 filename: 'export.html',
                 chunks: ['export'],
-                cache: false,
-            }),
-            new HtmlWebpackPlugin({
-                template: path.join(CONSENT_PATH, 'index.html'),
-                filename: 'consent.html',
-                chunks: ['consent'],
                 cache: false,
             }),
             new HtmlWebpackPlugin({

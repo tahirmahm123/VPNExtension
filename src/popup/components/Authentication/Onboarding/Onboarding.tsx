@@ -3,8 +3,6 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import uniqueProtocolImageUrl from '../../../../assets/images/onboarding-unique-protocol.svg';
 import sitesAppExclusionsImageUrl from '../../../../assets/images/onboarding-sites-app-exclusions.svg';
 import noLoggingPolicyImageUrl from '../../../../assets/images/onboarding-no-logging-policy.svg';
@@ -13,12 +11,7 @@ import { Slider } from '../../ui/Slider';
 import './onboarding.pcss';
 
 export const Onboarding = observer(() => {
-    const { authStore, telemetryStore } = useContext(rootStore);
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.OnboardingScreen,
-    );
+    const { authStore } = useContext(rootStore);
 
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
@@ -41,10 +34,6 @@ export const Onboarding = observer(() => {
     ];
 
     const nextSlideHandler = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.NextOnboardingClick,
-            TelemetryScreenName.OnboardingScreen,
-        );
         if (currentSlideIndex === slides.length - 1) {
             await authStore.setShowOnboarding(false);
             return;
@@ -57,10 +46,6 @@ export const Onboarding = observer(() => {
     };
 
     const handleCloseClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.SkipOnboardingClick,
-            TelemetryScreenName.OnboardingScreen,
-        );
         await authStore.setShowOnboarding(false);
     };
 

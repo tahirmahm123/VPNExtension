@@ -10,8 +10,6 @@ import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { translator } from '../../../common/translator';
 import { type LocationData } from '../../stores/VpnStore';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { Icon, IconButton } from '../../../common/components/Icons';
 
 import { FastestSkeleton } from './FastestSkeleton';
@@ -32,18 +30,10 @@ export const Locations = observer(() => {
         vpnStore,
         uiStore,
         settingsStore,
-        telemetryStore,
     } = useContext(rootStore);
-
-    const isSearchTelemetrySent = useRef(false);
 
     const deletedNotificationTimeout = useRef<NodeJS.Timeout>();
     const [lastUnsavedLocation, setLastUnsavedLocation] = useState<string | null>(null);
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.LocationsScreen,
-    );
 
     const {
         filteredLocations,
@@ -71,10 +61,6 @@ export const Locations = observer(() => {
     };
 
     const handleLocationSave = async (id: string): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.SaveLocationClick,
-            TelemetryScreenName.ContextBasedScreen,
-        );
         const isAdded = await vpnStore.toggleSavedLocation(id);
 
         if (!isAdded) {
@@ -118,18 +104,6 @@ export const Locations = observer(() => {
 
     const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
-
-        // Telemetry event should be sent only once
-        // when user starts typing in the search field.
-        // NOTE: State will be reset when this component is unmounted.
-        if (!isSearchTelemetrySent.current) {
-            isSearchTelemetrySent.current = true;
-            telemetryStore.sendCustomEvent(
-                TelemetryActionName.SearchLocationsClick,
-                TelemetryScreenName.LocationsScreen,
-            );
-        }
-
         vpnStore.setSearchValue(value);
     };
 

@@ -2,30 +2,13 @@ import React, { type ReactElement, useContext } from 'react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import newsletterImageUrl from '../../../../assets/images/newsletter.svg';
 
 import './newsletter.pcss';
 
 export const Newsletter = (): ReactElement => {
-    const { authStore, telemetryStore } = useContext(rootStore);
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.NewsletterScreen,
-    );
-
+    const { authStore } = useContext(rootStore);
     const handleClick = (value: boolean) => async (): Promise<void> => {
-        const telemetryActionName = value
-            ? TelemetryActionName.AcceptNewsletter
-            : TelemetryActionName.DeclineNewsletter;
-
-        telemetryStore.sendCustomEvent(
-            telemetryActionName,
-            TelemetryScreenName.NewsletterScreen,
-        );
-
         await authStore.updateMarketingConsent(value);
     };
 

@@ -1,10 +1,10 @@
 import zod from 'zod';
 
 export const authAccessTokenScheme = zod.object({
+    isLoggedIn: zod.boolean(),
     accessToken: zod.string(),
-    expiresIn: zod.number().gte(0).finite(),
     tokenType: zod.literal('bearer'),
-    scope: zod.literal('trust').optional(),
+    tempToken: zod.string().or(zod.null()),
 });
 
 /**

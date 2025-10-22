@@ -4,34 +4,19 @@ import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { POTENTIAL_DEVICE_NUM } from '../../../../common/components/constants';
 import upgradeImgUrl from '../../../../assets/images/upgrade-subscription.svg';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 
 import './upgrade-screen.pcss';
 
 export const UpgradeScreen = (): ReactElement => {
-    const { authStore, vpnStore, telemetryStore } = useContext(rootStore);
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.PurchaseScreen,
-    );
+    const { authStore, vpnStore } = useContext(rootStore);
 
     const handleUpgradeClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.OnboardingPurchaseClick,
-            TelemetryScreenName.PurchaseScreen,
-        );
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
         window.close();
     };
 
     const handleSkipClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.OnboardingStayFreeClick,
-            TelemetryScreenName.PurchaseScreen,
-        );
         await authStore.setShowUpgradeScreen(false);
     };
 

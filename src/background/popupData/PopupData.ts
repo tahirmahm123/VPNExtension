@@ -13,7 +13,6 @@ import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
 import { forwarder } from '../forwarder';
 import { rateModal } from '../rateModal';
-import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { type EndpointsInterface } from '../endpoints/Endpoints';
 import { type PermissionsCheckerInterface } from '../permissionsChecker/PermissionsChecker';
 import { type PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
@@ -162,7 +161,6 @@ export class PopupData {
         const shouldShowRateModal = rateModal.shouldShowRateModal();
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
-        const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
         const marketingConsent = await this.credentials.getMarketingConsent();
 
         // If error check permissions when popup is opened, ignoring multiple retries
@@ -198,7 +196,6 @@ export class PopupData {
             flagsStorageData,
             isVpnEnabledByUrl,
             shouldShowRateModal,
-            shouldShowMobileEdgePromoBanner,
             username,
             shouldShowHintPopup,
             isVpnBlocked,
